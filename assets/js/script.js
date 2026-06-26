@@ -431,10 +431,21 @@ function showReceipt(name, phone, location, items, total) {
 document.getElementById("confirm-order").addEventListener("click", function () {
   if (!lastReceiptData) return;
   var data = lastReceiptData;
-  var btn = this;
-  btn.textContent = "⏳ Loading...";
-  btn.disabled = true;
 
+  // 1. Open WhatsApp directly with order text
+  var msg = "🍽️ *New Home Delivery Order*%0A";
+  msg += "─────────────────────%0A%0A";
+  data.items.forEach(function (i) {
+    msg += "• " + i.name + " × " + i.qty + " = ₹" + (i.qty * i.price) + "%0A";
+  });
+  msg += "%0A─────────────────────%0A";
+  msg += "*Total: ₹" + data.total + "*%0A%0A";
+  msg += "👤 *Name:* " + data.name + "%0A";
+  msg += "📞 *Phone:* " + data.phone + "%0A";
+  msg += "📍 *Location:* " + data.location;
+  window.open("https://wa.me/919760971378?text=" + msg, "_blank");
+
+  // 2. Background: generate PDF and auto-download for manual sharing
   var element = document.getElementById("receipt-content");
   var opt = {
     margin:        [8, 8],
@@ -450,35 +461,16 @@ document.getElementById("confirm-order").addEventListener("click", function () {
     .get("pdf")
     .then(function (pdf) {
       var blob = pdf.output("blob");
-      var file = new File([blob], "Foodie_Order_" + Date.now() + ".pdf", { type: "application/pdf" });
-
-      // Web Share with PDF file → user picks WhatsApp → PDF attached → just tap send
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: "Foodie Order",
-          text: "🍽️ Foodie Order - ₹" + data.total + " | " + data.name
-        }).catch(function () {});
-      } else {
-        // Desktop fallback: download PDF
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = "Foodie_Order_" + Date.now() + ".pdf";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "Foodie_Order_" + Date.now() + ".pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     })
-    .catch(function () {
-      // PDF fail → download the receipt content as fallback
-      alert("Could not generate PDF. Please take a screenshot of the receipt.");
-    })
-    .finally(function () {
-      btn.textContent = "✅ Confirm Order";
-      btn.disabled = false;
-    });
+    .catch(function () {});
 });
 
 
