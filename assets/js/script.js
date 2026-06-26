@@ -390,7 +390,7 @@ document.querySelector(".modal-form").addEventListener("submit", function (e) {
 let lastReceiptData = null;
 
 function showReceipt(name, phone, location, items, total) {
-  lastReceiptData = { name, phone, location, items, total };
+  lastReceiptData = { name, phone, location, items: items.map(function (i) { return { name: i.name, qty: i.qty, price: i.price }; }), total };
 
   document.getElementById("receipt-name").textContent = name;
   document.getElementById("receipt-phone").textContent = phone;
@@ -428,68 +428,22 @@ function showReceipt(name, phone, location, items, total) {
   updateCartSummary();
 }
 
-document.getElementById("download-pdf").addEventListener("click", function () {
-  const element = document.getElementById("receipt-content");
-  const opt = {
-    margin:        [10, 10],
-    filename:     `Foodie_Order_${Date.now()}.pdf`,
-    image:        { type: "jpeg", quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
-  };
-  html2pdf().set(opt).from(element).save();
-});
-
-document.getElementById("share-wa").addEventListener("click", function () {
+document.getElementById("confirm-order").addEventListener("click", function () {
   if (!lastReceiptData) return;
-  const { name, phone, location, items, total } = lastReceiptData;
+  var data = lastReceiptData;
 
-  // Build WhatsApp text message immediately
-  let msg = "🍽️ *New Home Delivery Order*%0A";
+  var msg = "🍽️ *New Home Delivery Order*%0A";
   msg += "─────────────────────%0A%0A";
-  items.forEach((i) => {
-    msg += `• ${i.name} × ${i.qty} = ₹${i.qty * i.price}%0A`;
+  data.items.forEach(function (i) {
+    msg += "• " + i.name + " × " + i.qty + " = ₹" + (i.qty * i.price) + "%0A";
   });
-  msg += `%0A─────────────────────%0A`;
-  msg += `*Total: ₹${total}*%0A%0A`;
-  msg += `👤 *Name:* ${name}%0A`;
-  msg += `📞 *Phone:* ${phone}%0A`;
-  msg += `📍 *Location:* ${location}`;
+  msg += "%0A─────────────────────%0A";
+  msg += "*Total: ₹" + data.total + "*%0A%0A";
+  msg += "👤 *Name:* " + data.name + "%0A";
+  msg += "📞 *Phone:* " + data.phone + "%0A";
+  msg += "📍 *Location:* " + data.location;
 
-  const waUrl = `https://wa.me/919760971378?text=${msg}`;
-
-  // Open WhatsApp text immediately (direct user gesture — won't be blocked)
-  window.open(waUrl, "_blank");
-
-  // Try to generate PDF and use Web Share API (non-blocking enhancement)
-  const element = document.getElementById("receipt-content");
-  const opt = {
-    margin:        [10, 10],
-    filename:     `Foodie_Order_${Date.now()}.pdf`,
-    image:        { type: "jpeg", quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
-  };
-
-  html2pdf()
-    .set(opt)
-    .from(element)
-    .toPdf()
-    .get("pdf")
-    .then(function (pdf) {
-      var blob = pdf.output("blob");
-      var file = new File([blob], "Foodie_Order_" + Date.now() + ".pdf", { type: "application/pdf" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: "Foodie Order Receipt",
-          text: "\uD83C\uDF7D\uFE0F Foodie Order - \u20B9" + total
-        });
-      }
-    })
-    .catch(function () {
-      // PDF generation failed — WhatsApp text is already open
-    });
+  window.open("https://wa.me/919760971378?text=" + msg, "_blank");
 });
 
 

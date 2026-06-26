@@ -2297,19 +2297,12 @@ textarea.input-field {
   transition: var(--transition-1);
 }
 
-#download-pdf {
-  background-color: var(--rich-black-fogra-29);
+#confirm-order {
+  background-color: var(--deep-saffron);
   color: var(--white);
 }
 
-#download-pdf:is(:hover, :focus) { background-color: var(--deep-saffron); }
-
-.receipt-btn-wa {
-  background-color: #25D366;
-  color: var(--white);
-}
-
-.receipt-btn-wa:is(:hover, :focus) { background-color: #1da851; }
+#confirm-order:is(:hover, :focus) { background-color: var(--dark-orange); }
 
 /*-----------------------------------*\
   #FLOATING ACTION WIDGET
