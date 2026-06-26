@@ -2244,6 +2244,84 @@
 
 
   <!-- 
+    - #RECEIPT MODAL
+  -->
+
+  <div class="modal-overlay" data-modal="receipt">
+    <div class="modal-container modal-receipt">
+      <button class="modal-close-btn" data-modal-close>
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+
+      <div id="receipt-content">
+        <div class="receipt-header">
+          <div class="receipt-brand">
+            <h2 class="receipt-logo">Foodie<span class="span">.</span></h2>
+            <p class="receipt-tagline">Pure Veg Indian Restaurant</p>
+          </div>
+          <div class="receipt-badge">ORDER CONFIRMED</div>
+        </div>
+
+        <div class="receipt-divider"></div>
+
+        <div class="receipt-info">
+          <div class="receipt-info-col">
+            <p class="receipt-info-label">Customer</p>
+            <p class="receipt-info-value" id="receipt-name"></p>
+          </div>
+          <div class="receipt-info-col">
+            <p class="receipt-info-label">Phone</p>
+            <p class="receipt-info-value" id="receipt-phone"></p>
+          </div>
+        </div>
+
+        <div class="receipt-info">
+          <div class="receipt-info-col">
+            <p class="receipt-info-label">Delivery Location</p>
+            <p class="receipt-info-value" id="receipt-location"></p>
+          </div>
+          <div class="receipt-info-col">
+            <p class="receipt-info-label">Order Time</p>
+            <p class="receipt-info-value" id="receipt-time"></p>
+          </div>
+        </div>
+
+        <div class="receipt-divider"></div>
+
+        <table class="receipt-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="receipt-items"></tbody>
+        </table>
+
+        <div class="receipt-total-row">
+          <span class="receipt-total-label">Grand Total</span>
+          <span class="receipt-total-value" id="receipt-total"></span>
+        </div>
+
+        <div class="receipt-divider"></div>
+
+        <div class="receipt-footer-text">
+          <p>Thank you for ordering with Foodie!</p>
+          <p>We'll deliver fresh & delicious veg food to your doorstep.</p>
+        </div>
+      </div>
+
+      <div class="receipt-actions">
+        <button class="btn receipt-btn" id="download-pdf">📄 Download PDF</button>
+        <button class="btn receipt-btn receipt-btn-wa" id="share-wa">💬 Share on WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 
     - #BACK TO TOP
   -->
 
@@ -2265,6 +2343,11 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- 
+    - html2pdf for PDF generation
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </body>
 

@@ -341,17 +341,10 @@ document.querySelector("[data-place-order]").addEventListener("click", function 
   msg += `👤 *Name:* ${name}%0A`;
   msg += `📞 *Phone:* ${phone}%0A`;
   msg += `📍 *Location:* ${fetchedLocationLink}`;
-  window.open(`https://wa.me/919760971378?text=${msg}`, "_blank");
+
+  // show receipt
   closeAllModals();
-  Object.keys(cart).forEach((key) => { cart[key].qty = 0; });
-  document.querySelectorAll("[data-qty-value]").forEach((el) => { el.textContent = "0"; });
-  document.getElementById("delivery-name").value = "";
-  document.getElementById("delivery-phone").value = "";
-  document.getElementById("delivery-address").value = "";
-  fetchedLocationLink = "";
-  document.getElementById("fetch-location").textContent = "📍 Fetch My Location";
-  document.getElementById("fetch-location").disabled = false;
-  updateCartSummary();
+  showReceipt(name, phone, fetchedLocationLink, items, total);
 });
 
 
@@ -386,4 +379,79 @@ document.querySelector(".modal-form").addEventListener("submit", function (e) {
   window.open(`https://wa.me/919760971378?text=${msg}`, "_blank");
   closeAllModals();
   this.reset();
+});
+
+
+
+/**
+ * receipt
+ */
+
+let lastReceiptData = null;
+
+function showReceipt(name, phone, location, items, total) {
+  lastReceiptData = { name, phone, location, items, total };
+
+  document.getElementById("receipt-name").textContent = name;
+  document.getElementById("receipt-phone").textContent = phone;
+
+  const locEl = document.getElementById("receipt-location");
+  if (location.startsWith("http")) {
+    locEl.innerHTML = `<a href="${location}" target="_blank" style="color:var(--deep-saffron);">View on Map ↗</a>`;
+  } else {
+    locEl.textContent = location;
+  }
+
+  document.getElementById("receipt-time").textContent = new Date().toLocaleString("en-IN");
+
+  const tbody = document.getElementById("receipt-items");
+  tbody.innerHTML = "";
+  items.forEach((item) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${item.name}</td><td>${item.qty}</td><td>₹${item.price}</td><td>₹${item.qty * item.price}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("receipt-total").textContent = "₹" + total;
+
+  openModal("receipt");
+
+  // reset cart
+  Object.keys(cart).forEach((key) => { cart[key].qty = 0; });
+  document.querySelectorAll("[data-qty-value]").forEach((el) => { el.textContent = "0"; });
+  document.getElementById("delivery-name").value = "";
+  document.getElementById("delivery-phone").value = "";
+  document.getElementById("delivery-address").value = "";
+  fetchedLocationLink = "";
+  document.getElementById("fetch-location").textContent = "📍 Fetch My Location";
+  document.getElementById("fetch-location").disabled = false;
+  updateCartSummary();
+}
+
+document.getElementById("download-pdf").addEventListener("click", function () {
+  const element = document.getElementById("receipt-content");
+  const opt = {
+    margin:        [10, 10],
+    filename:     `Foodie_Order_${Date.now()}.pdf`,
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
+  };
+  html2pdf().set(opt).from(element).save();
+});
+
+document.getElementById("share-wa").addEventListener("click", function () {
+  if (!lastReceiptData) return;
+  const { name, phone, location, items, total } = lastReceiptData;
+  let msg = "🍽️ *New Home Delivery Order*%0A";
+  msg += "─────────────────────%0A%0A";
+  items.forEach((i) => {
+    msg += `• ${i.name} × ${i.qty} = ₹${i.qty * i.price}%0A`;
+  });
+  msg += `%0A─────────────────────%0A`;
+  msg += `*Total: ₹${total}*%0A%0A`;
+  msg += `👤 *Name:* ${name}%0A`;
+  msg += `📞 *Phone:* ${phone}%0A`;
+  msg += `📍 *Location:* ${location}`;
+  window.open(`https://wa.me/919760971378?text=${msg}`, "_blank");
 });
