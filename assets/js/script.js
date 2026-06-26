@@ -319,6 +319,10 @@ document.querySelector("[data-place-order]").addEventListener("click", function 
     alert("Please fill in your name and phone number.");
     return;
   }
+  if (phone.length !== 10) {
+    alert("Please enter a valid 10-digit phone number.");
+    return;
+  }
   if (!fetchedLocationLink) {
     alert("Please fetch your location first.");
     return;
@@ -489,10 +493,12 @@ document.querySelectorAll("input[type='tel']").forEach((inp) => {
     }
   });
   inp.addEventListener("blur", function () {
-    if (this.value.length > 0 && this.value.length < 10) {
+    if (this.value.length > 0 && this.value.length !== 10) {
       this.style.borderColor = "var(--cinnabar)";
+      this.style.outline = "1px solid var(--cinnabar)";
     } else {
       this.style.borderColor = "";
+      this.style.outline = "";
     }
   });
   inp.addEventListener("focus", function () {
