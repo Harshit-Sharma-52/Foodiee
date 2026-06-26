@@ -431,10 +431,21 @@ function showReceipt(name, phone, location, items, total) {
 document.getElementById("confirm-order").addEventListener("click", function () {
   if (!lastReceiptData) return;
   var data = lastReceiptData;
-  var btn = this;
-  btn.textContent = "⏳ Generating PDF...";
-  btn.disabled = true;
 
+  // 1. Open WhatsApp directly with text (immediate, won't be blocked)
+  var msg = "🍽️ *New Home Delivery Order*%0A";
+  msg += "─────────────────────%0A%0A";
+  data.items.forEach(function (i) {
+    msg += "• " + i.name + " × " + i.qty + " = ₹" + (i.qty * i.price) + "%0A";
+  });
+  msg += "%0A─────────────────────%0A";
+  msg += "*Total: ₹" + data.total + "*%0A%0A";
+  msg += "👤 *Name:* " + data.name + "%0A";
+  msg += "📞 *Phone:* " + data.phone + "%0A";
+  msg += "📍 *Location:* " + data.location;
+  window.open("https://wa.me/919760971378?text=" + msg, "_blank");
+
+  // 2. In background, generate PDF and try Web Share (enhancement)
   var element = document.getElementById("receipt-content");
   var opt = {
     margin:        [8, 8],
@@ -452,46 +463,15 @@ document.getElementById("confirm-order").addEventListener("click", function () {
     .then(function (pdf) {
       var blob = pdf.output("blob");
       var file = new File([blob], "Foodie_Order_" + Date.now() + ".pdf", { type: "application/pdf" });
-
-      // Try Web Share API (works on Android — user can pick WhatsApp)
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
           files: [file],
           title: "Foodie Order Receipt",
           text: "🍽️ Foodie Order - ₹" + data.total
-        }).catch(function () {
-          // user cancelled share — do nothing
-        });
-      } else {
-        // Web Share not supported — download PDF
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = "Foodie_Order_" + Date.now() + ".pdf";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        }).catch(function () {});
       }
     })
-    .catch(function () {
-      // PDF generation failed — fallback: open WhatsApp text
-      var msg = "🍽️ *New Home Delivery Order*%0A";
-      msg += "─────────────────────%0A%0A";
-      data.items.forEach(function (i) {
-        msg += "• " + i.name + " × " + i.qty + " = ₹" + (i.qty * i.price) + "%0A";
-      });
-      msg += "%0A─────────────────────%0A";
-      msg += "*Total: ₹" + data.total + "*%0A%0A";
-      msg += "👤 *Name:* " + data.name + "%0A";
-      msg += "📞 *Phone:* " + data.phone + "%0A";
-      msg += "📍 *Location:* " + data.location;
-      window.open("https://wa.me/919760971378?text=" + msg, "_blank");
-    })
-    .finally(function () {
-      btn.textContent = "✅ Confirm Order";
-      btn.disabled = false;
-    });
+    .catch(function () {});
 });
 
 
