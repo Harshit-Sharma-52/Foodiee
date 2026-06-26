@@ -1915,6 +1915,13 @@ textarea.input-field {
     right: 12px;
     font-size: 26px;
   }
+
+  .modal-receipt {
+    padding: 25px 18px;
+    max-height: 95vh;
+    border-radius: 16px 16px 0 0;
+    margin-top: auto;
+  }
 }
 
 .modal-submit-btn {
@@ -2127,6 +2134,10 @@ textarea.input-field {
 .modal-receipt {
   max-width: 550px;
   padding: 40px 35px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
 }
 
 #receipt-content {
@@ -2134,6 +2145,9 @@ textarea.input-field {
   background: #ffffff;
   padding: 30px;
   color: hsl(210, 26%, 7%);
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .receipt-header {

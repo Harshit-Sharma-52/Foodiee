@@ -440,36 +440,11 @@ document.getElementById("download-pdf").addEventListener("click", function () {
   html2pdf().set(opt).from(element).save();
 });
 
-document.getElementById("share-wa").addEventListener("click", async function () {
+document.getElementById("share-wa").addEventListener("click", function () {
   if (!lastReceiptData) return;
   const { name, phone, location, items, total } = lastReceiptData;
 
-  const element = document.getElementById("receipt-content");
-  const opt = {
-    margin:        [10, 10],
-    filename:     `Foodie_Order_${Date.now()}.pdf`,
-    image:        { type: "jpeg", quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
-  };
-
-  try {
-    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
-    const file = new File([pdfBlob], `Foodie_Order_${Date.now()}.pdf`, { type: "application/pdf" });
-
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: "Foodie Order Receipt",
-        text: `🍽️ Foodie Order - ₹${total}`
-      });
-      return;
-    }
-  } catch (e) {
-    // Web Share failed or not supported — fallback to text
-  }
-
-  // Fallback: open WhatsApp with text message
+  // Build WhatsApp text message immediately
   let msg = "🍽️ *New Home Delivery Order*%0A";
   msg += "─────────────────────%0A%0A";
   items.forEach((i) => {
@@ -480,7 +455,41 @@ document.getElementById("share-wa").addEventListener("click", async function () 
   msg += `👤 *Name:* ${name}%0A`;
   msg += `📞 *Phone:* ${phone}%0A`;
   msg += `📍 *Location:* ${location}`;
-  window.open(`https://wa.me/919760971378?text=${msg}`, "_blank");
+
+  const waUrl = `https://wa.me/919760971378?text=${msg}`;
+
+  // Open WhatsApp text immediately (direct user gesture — won't be blocked)
+  window.open(waUrl, "_blank");
+
+  // Try to generate PDF and use Web Share API (non-blocking enhancement)
+  const element = document.getElementById("receipt-content");
+  const opt = {
+    margin:        [10, 10],
+    filename:     `Foodie_Order_${Date.now()}.pdf`,
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
+  };
+
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .toPdf()
+    .get("pdf")
+    .then(function (pdf) {
+      var blob = pdf.output("blob");
+      var file = new File([blob], "Foodie_Order_" + Date.now() + ".pdf", { type: "application/pdf" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: "Foodie Order Receipt",
+          text: "\uD83C\uDF7D\uFE0F Foodie Order - \u20B9" + total
+        });
+      }
+    })
+    .catch(function () {
+      // PDF generation failed — WhatsApp text is already open
+    });
 });
 
 
