@@ -434,15 +434,42 @@ document.getElementById("download-pdf").addEventListener("click", function () {
     margin:        [10, 10],
     filename:     `Foodie_Order_${Date.now()}.pdf`,
     image:        { type: "jpeg", quality: 0.98 },
-    html2canvas:  { scale: 2, useCORS: true },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
     jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
   };
   html2pdf().set(opt).from(element).save();
 });
 
-document.getElementById("share-wa").addEventListener("click", function () {
+document.getElementById("share-wa").addEventListener("click", async function () {
   if (!lastReceiptData) return;
   const { name, phone, location, items, total } = lastReceiptData;
+
+  const element = document.getElementById("receipt-content");
+  const opt = {
+    margin:        [10, 10],
+    filename:     `Foodie_Order_${Date.now()}.pdf`,
+    image:        { type: "jpeg", quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    jsPDF:        { unit: "mm", format: "a5", orientation: "portrait" }
+  };
+
+  try {
+    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
+    const file = new File([pdfBlob], `Foodie_Order_${Date.now()}.pdf`, { type: "application/pdf" });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: "Foodie Order Receipt",
+        text: `🍽️ Foodie Order - ₹${total}`
+      });
+      return;
+    }
+  } catch (e) {
+    // Web Share failed or not supported — fallback to text
+  }
+
+  // Fallback: open WhatsApp with text message
   let msg = "🍽️ *New Home Delivery Order*%0A";
   msg += "─────────────────────%0A%0A";
   items.forEach((i) => {
