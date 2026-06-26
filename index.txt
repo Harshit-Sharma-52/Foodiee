@@ -336,7 +336,7 @@ placeholder = Message
 
 Book a Table
 
-&copy; 2022 codewithsadee All Rights Reserved.
+
 
 
 
