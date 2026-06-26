@@ -455,3 +455,86 @@ document.getElementById("share-wa").addEventListener("click", function () {
   msg += `📍 *Location:* ${location}`;
   window.open(`https://wa.me/919760971378?text=${msg}`, "_blank");
 });
+
+
+
+/**
+ * phone input - only digits
+ */
+
+document.querySelectorAll("input[type='tel']").forEach((inp) => {
+  inp.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "");
+  });
+  inp.addEventListener("keydown", function (e) {
+    if (e.key === "e" || e.key === "E" || e.key === "." || e.key === "-" || e.key === "+") {
+      e.preventDefault();
+    }
+  });
+  inp.addEventListener("blur", function () {
+    if (this.value.length > 0 && this.value.length < 10) {
+      this.style.borderColor = "var(--cinnabar)";
+    } else {
+      this.style.borderColor = "";
+    }
+  });
+  inp.addEventListener("focus", function () {
+    this.style.borderColor = "";
+  });
+});
+
+
+
+/**
+ * floating action widget
+ */
+
+const fab = document.createElement("div");
+fab.className = "fab";
+fab.innerHTML = `<ion-icon name="restaurant-outline"></ion-icon>`;
+
+const fabOptions = document.createElement("div");
+fabOptions.className = "fab-options";
+
+const opt1 = document.createElement("button");
+opt1.className = "fab-option";
+opt1.innerHTML = `<span class="fab-option-icon"><ion-icon name="calendar-outline"></ion-icon></span> Book A Table`;
+opt1.addEventListener("click", function () {
+  closeFab();
+  openModal("book-table");
+});
+
+const opt2 = document.createElement("button");
+opt2.className = "fab-option";
+opt2.innerHTML = `<span class="fab-option-icon"><ion-icon name="bicycle-outline"></ion-icon></span> Order Now`;
+opt2.addEventListener("click", function () {
+  closeFab();
+  openModal("home-delivery");
+});
+
+fabOptions.appendChild(opt1);
+fabOptions.appendChild(opt2);
+document.body.appendChild(fabOptions);
+document.body.appendChild(fab);
+
+let fabOpen = false;
+
+function toggleFab() {
+  fabOpen = !fabOpen;
+  fab.classList.toggle("active", fabOpen);
+  fabOptions.classList.toggle("active", fabOpen);
+}
+
+function closeFab() {
+  fabOpen = false;
+  fab.classList.remove("active");
+  fabOptions.classList.remove("active");
+}
+
+fab.addEventListener("click", toggleFab);
+
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".fab") && !e.target.closest(".fab-options")) {
+    closeFab();
+  }
+});

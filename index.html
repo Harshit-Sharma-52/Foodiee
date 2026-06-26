@@ -1885,7 +1885,7 @@
           <input type="email" name="email" required placeholder="Email" class="input-field">
         </div>
         <div class="input-wrapper">
-          <input type="tel" name="phone" required placeholder="Phone Number" class="input-field">
+          <input type="tel" name="phone" required placeholder="Phone Number" class="input-field" maxlength="10" pattern="[0-9]{10}" inputmode="numeric">
           <input type="date" name="date" required class="input-field">
         </div>
         <div class="input-wrapper">
@@ -2222,7 +2222,7 @@
 
       <div class="delivery-details">
         <input type="text" id="delivery-name" placeholder="Your Name" class="input-field" required>
-        <input type="tel" id="delivery-phone" placeholder="Phone Number" class="input-field" required>
+        <input type="tel" id="delivery-phone" placeholder="Phone Number" class="input-field" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric">
         <button type="button" class="btn location-btn" id="fetch-location">📍 Fetch My Location</button>
         <input type="hidden" id="delivery-address">
       </div>
