@@ -29,7 +29,7 @@
   --sonic-silver: hsl(0, 0%, 1%);
   --deep-saffron: hsl(145, 60%, 40%);
   --dark-orange: hsl(145, 60%, 34%);
-  --desert-sand: hsl(145, 32%, 82%);
+  --desert-sand: hsl(150, 5%, 92%);
   --isabelline: hsl(38, 44%, 96%);
   --gainsboro: hsl(0, 0%, 87%);
   --tangerine: hsl(145, 55%, 46%);
@@ -530,11 +530,31 @@ body.active { overflow: hidden; }
 .hero-banner { display: none; }
 
 .hero {
+  position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   padding-block: 145px 60px;
   text-align: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 85% 45%, hsla(145, 60%, 40%, 0.35), transparent 35%),
+    radial-gradient(circle at 12% 15%, hsla(145, 60%, 40%, 0.15), transparent 30%),
+    radial-gradient(circle at 10% 85%, hsla(145, 60%, 40%, 0.12), transparent 25%),
+    radial-gradient(3px 3px at 20% 30%, hsla(145, 60%, 72%, 0.9), transparent),
+    radial-gradient(4px 4px at 70% 12%, hsla(145, 60%, 72%, 0.8), transparent),
+    radial-gradient(3px 3px at 55% 78%, hsla(145, 60%, 72%, 0.7), transparent),
+    radial-gradient(2px 2px at 35% 55%, hsla(145, 60%, 72%, 0.8), transparent),
+    radial-gradient(4px 4px at 92% 28%, hsla(145, 60%, 72%, 0.6), transparent),
+    radial-gradient(3px 3px at 8% 70%, hsla(145, 60%, 72%, 0.6), transparent);
+  background-repeat: no-repeat;
 }
 
 .hero-subtitle {
@@ -1418,7 +1438,7 @@ textarea.input-field {
     border-radius: 50%;
     overflow: hidden;
     border: 10px solid var(--white);
-    box-shadow: 0 25px 60px hsla(0, 0%, 0%, 0.35);
+    box-shadow: 0 25px 60px hsla(0, 0%, 0%, 0.35), 0 0 60px 5px hsla(145, 60%, 40%, 0.45);
     background-color: var(--isabelline);
   }
 
