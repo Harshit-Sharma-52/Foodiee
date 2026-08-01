@@ -669,9 +669,17 @@ body.active { overflow: hidden; }
   color: var(--black);
 }
 
-.hero .btn-hover::after { background-color: var(--white); }
+.hero .btn-hover {
+  background-color: var(--white);
+  color: var(--black);
+}
 
-.hero .btn-hover:is(:hover, :focus) { color: var(--black); }
+.hero .btn-hover::after { background-color: var(--deep-saffron); }
+
+.hero .btn-hover:is(:hover, :focus) {
+  background-color: var(--deep-saffron);
+  color: var(--white);
+}
 
 
 
