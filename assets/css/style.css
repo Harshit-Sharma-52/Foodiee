@@ -527,14 +527,13 @@ body.active { overflow: hidden; }
   #HERO
 \*-----------------------------------*/
 
-.hero-banner { display: none; }
-
 .hero {
   position: relative;
+  overflow: hidden;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding-block: 145px 60px;
+  padding-block: 200px 160px;
   text-align: center;
 }
 
@@ -545,15 +544,14 @@ body.active { overflow: hidden; }
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 85% 45%, hsla(145, 60%, 40%, 0.35), transparent 35%),
-    radial-gradient(circle at 12% 15%, hsla(145, 60%, 40%, 0.15), transparent 30%),
-    radial-gradient(circle at 10% 85%, hsla(145, 60%, 40%, 0.12), transparent 25%),
+    radial-gradient(circle at 80% 45%, hsla(145, 60%, 40%, 0.3), transparent 42%),
     radial-gradient(3px 3px at 20% 30%, hsla(145, 60%, 72%, 0.9), transparent),
     radial-gradient(4px 4px at 70% 12%, hsla(145, 60%, 72%, 0.8), transparent),
     radial-gradient(3px 3px at 55% 78%, hsla(145, 60%, 72%, 0.7), transparent),
     radial-gradient(2px 2px at 35% 55%, hsla(145, 60%, 72%, 0.8), transparent),
     radial-gradient(4px 4px at 92% 28%, hsla(145, 60%, 72%, 0.6), transparent),
-    radial-gradient(3px 3px at 8% 70%, hsla(145, 60%, 72%, 0.6), transparent);
+    radial-gradient(3px 3px at 8% 70%, hsla(145, 60%, 72%, 0.6), transparent),
+    linear-gradient(to bottom, hsla(0, 0%, 4%, 0.72), hsla(0, 0%, 4%, 0.55) 50%, hsla(0, 0%, 4%, 0.78));
   background-repeat: no-repeat;
 }
 
@@ -1427,41 +1425,17 @@ textarea.input-field {
 
   .hero-content > :is(*, .btn) { margin-inline: 0; }
 
-  .hero-banner {
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 50px;
-    max-width: 42%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 10px solid var(--white);
-    box-shadow: 0 25px 60px hsla(0, 0%, 0%, 0.35), 0 0 60px 5px hsla(145, 60%, 40%, 0.45);
-    background-color: var(--isabelline);
-  }
-
-  .hero-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 100%;
-    background-image: url("../images/hero-bg-shape.png");
+  .hero::before {
+    background:
+      radial-gradient(circle at 78% 45%, hsla(145, 60%, 40%, 0.32), transparent 42%),
+      radial-gradient(3px 3px at 20% 30%, hsla(145, 60%, 72%, 0.9), transparent),
+      radial-gradient(4px 4px at 70% 12%, hsla(145, 60%, 72%, 0.8), transparent),
+      radial-gradient(3px 3px at 55% 78%, hsla(145, 60%, 72%, 0.7), transparent),
+      radial-gradient(2px 2px at 35% 55%, hsla(145, 60%, 72%, 0.8), transparent),
+      radial-gradient(4px 4px at 92% 28%, hsla(145, 60%, 72%, 0.6), transparent),
+      radial-gradient(3px 3px at 8% 70%, hsla(145, 60%, 72%, 0.6), transparent),
+      linear-gradient(to right, hsla(0, 0%, 4%, 0.85), hsla(0, 0%, 4%, 0.5) 55%, hsla(0, 0%, 4%, 0.6));
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: right bottom;
-    pointer-events: none;
-    z-index: -1;
   }
 
 
@@ -1632,6 +1606,7 @@ textarea.input-field {
     min-height: 660px;
     display: grid;
     align-items: center;
+    padding-block: 120px;
   }
 
   .hero-subtitle { --fs-3: 3.2rem; }
@@ -1642,13 +1617,6 @@ textarea.input-field {
   }
 
   .hero-text { font-size: var(--fs-3); }
-
-  .hero-banner {
-    max-width: 44%;
-    top: 50%;
-    bottom: auto;
-    transform: translateY(-50%);
-  }
 
 
 
