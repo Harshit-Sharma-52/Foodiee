@@ -530,6 +530,7 @@ body.active { overflow: hidden; }
 .hero {
   position: relative;
   overflow: hidden;
+  z-index: 1;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -571,6 +572,7 @@ body.active { overflow: hidden; }
   color: var(--champagne-pink);
   max-width: 12ch;
   margin-inline: auto;
+  text-shadow: 0 2px 20px hsla(0, 0%, 0%, 0.45);
 }
 
 .hero-text {
@@ -578,6 +580,7 @@ body.active { overflow: hidden; }
   margin-block: 15px 30px;
   max-width: 44ch;
   margin-inline: auto;
+  text-shadow: 0 1px 12px hsla(0, 0%, 0%, 0.5);
 }
 
 .hero-btn-group {
