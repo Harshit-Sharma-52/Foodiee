@@ -628,14 +628,44 @@ body.active { overflow: hidden; }
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
   margin-block-start: 40px;
   padding-block-start: 30px;
   border-top: 1px solid hsla(0, 0%, 100%, 0.15);
 }
 
 .hero-stats li {
+  flex: 1;
+  max-width: 170px;
   text-align: center;
+  padding: 22px 14px;
+  border-radius: 16px;
+  background: hsla(0, 0%, 100%, 0.08);
+  border: 1px solid hsla(0, 0%, 100%, 0.12);
+  backdrop-filter: blur(8px);
+  transition: var(--transition-1);
+}
+
+.hero-stats li:hover {
+  transform: translateY(-4px);
+  background: hsla(0, 0%, 100%, 0.13);
+  border-color: hsla(145, 55%, 46%, 0.45);
+}
+
+.hero-stats-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-block-end: 10px;
+  border-radius: 50%;
+  background: hsla(145, 55%, 46%, 0.18);
+  color: var(--tangerine);
+}
+
+.hero-stats-icon ion-icon {
+  font-size: 2.2rem;
 }
 
 .hero-stats-number {
@@ -643,13 +673,14 @@ body.active { overflow: hidden; }
   color: var(--white);
   font-size: 2.2rem;
   font-weight: var(--fw-700);
+  line-height: 1;
 }
 
 .hero-stats-label {
   display: block;
   color: var(--desert-sand);
   font-size: var(--fs-5);
-  margin-block-start: 4px;
+  margin-block-start: 8px;
 }
 
 .hero .btn { margin-inline: 0; }
@@ -1496,10 +1527,39 @@ textarea.input-field {
 
   .hero-stats {
     justify-content: flex-start;
-    gap: 60px;
+    gap: 20px;
   }
 
-  .hero-stats li { text-align: left; }
+  .hero-stats li {
+    max-width: 180px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon number"
+      "icon label";
+    align-items: center;
+    column-gap: 14px;
+    padding: 18px;
+  }
+
+  .hero-stats-icon {
+    grid-area: icon;
+    margin-block-end: 0;
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-stats-number {
+    grid-area: number;
+    text-align: left;
+  }
+
+  .hero-stats-label {
+    grid-area: label;
+    margin-block-start: 2px;
+    text-align: left;
+  }
 
   .hero::before {
     background:
