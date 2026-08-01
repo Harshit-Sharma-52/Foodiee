@@ -468,7 +468,7 @@ document.getElementById("confirm-order").addEventListener("click", function () {
       var url = URL.createObjectURL(blob);
       var a = document.createElement("a");
       a.href = url;
-      a.download = "Foodie_Order_" + Date.now() + ".pdf";
+      a.download = "Fast-Food_Order_" + Date.now() + ".pdf";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

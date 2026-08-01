@@ -1,10 +1,10 @@
-Foodie. - Supper delicious Burger in town!
+Fast-Food. - Supper delicious Burger in town!
 
 
 
 #---------- HEADER ----------#
 
-Foodie.
+Fast-Food.
 
 Home
 About Us
@@ -70,7 +70,7 @@ alt = Burger with Drinks
 
 alt = get up to 50% off now
 
-Foodie, Burgers, and Best Pizzas in Town!
+Fast-Food, Burgers, and Best Pizzas in Town!
 
 The restaurants in Hangzhou also catered to many northern Chinese who had fled south from Kaifeng during the Jurchen invasion of the 1120s, while it is also known that many restaurants were run by families.
 
@@ -173,7 +173,7 @@ $69.00
 
 #---------- CTA ----------#
 
-The Foodie Have Excellent Of Quality Burgers!
+The Fast-Food Have Excellent Of Quality Burgers!
 
 The restaurants in Hangzhou also catered to many northern Chinese who had fled south from Kaifeng during the Jurchen invasion of the 1120s, while it is also known that many restaurants were run by families.
 
@@ -208,23 +208,23 @@ Our Customers Reviews
 Food is any substance consumed to provide nutritional
 support for an organism.
 
-alt = Robert William
+alt = Happy Customer
 
-Robert William
+Happy Customer
 
-CEO Kingfisher
+Verified Review
 
 "I would be lost without restaurant. I would like to personally thank you for your outstanding product."
 
 <ion-icon name="star"></ion-icon>
 
-Thomas Josef
+Food Enthusiast
 
-CEO Getforce
+Regular Diner
 
-Charles Richard
+Regular Guest
 
-CEO Angela
+Verified Review
 
 
 
@@ -270,7 +270,7 @@ Pizza
 Jan 01 2022
 
 <ion-icon name="person-outline"></ion-icon>
-Jonathan Smith
+Fast-Food Chef
 
 What Do You Think About Cheese Pizza Recipes?
 
@@ -291,7 +291,7 @@ Chicken
 
 #---------- FOOTER ----------#
 
-Foodie.
+Fast-Food.
 
 Financial experts support or help you to to find out which way you can raise your funds more.
 
