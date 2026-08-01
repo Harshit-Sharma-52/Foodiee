@@ -570,9 +570,15 @@ body.active { overflow: hidden; }
 
 .hero-title {
   color: var(--champagne-pink);
-  max-width: 12ch;
+  max-width: 18ch;
   margin-inline: auto;
   text-shadow: 0 2px 20px hsla(0, 0%, 0%, 0.45);
+}
+
+.hero-title-accent {
+  display: block;
+  color: var(--tangerine);
+  text-shadow: 0 2px 24px hsla(145, 55%, 46%, 0.35);
 }
 
 .hero-text {
@@ -583,12 +589,67 @@ body.active { overflow: hidden; }
   text-shadow: 0 1px 12px hsla(0, 0%, 0%, 0.5);
 }
 
+.hero-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-block-end: 30px;
+  flex-wrap: wrap;
+}
+
+.hero-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-stars ion-icon {
+  color: #ffb400;
+  font-size: 1.6rem;
+}
+
+.hero-rating-text {
+  color: var(--desert-sand);
+  font-size: var(--fs-5);
+}
+
+.hero-rating-text strong { color: var(--white); }
+
 .hero-btn-group {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-block-start: 40px;
+  padding-block-start: 30px;
+  border-top: 1px solid hsla(0, 0%, 100%, 0.15);
+}
+
+.hero-stats li {
+  text-align: center;
+}
+
+.hero-stats-number {
+  display: block;
+  color: var(--white);
+  font-size: 2.2rem;
+  font-weight: var(--fw-700);
+}
+
+.hero-stats-label {
+  display: block;
+  color: var(--desert-sand);
+  font-size: var(--fs-5);
+  margin-block-start: 4px;
 }
 
 .hero .btn { margin-inline: 0; }
@@ -1427,6 +1488,18 @@ textarea.input-field {
   }
 
   .hero-content > :is(*, .btn) { margin-inline: 0; }
+
+  .hero-rating {
+    justify-content: flex-start;
+    margin-block-end: 35px;
+  }
+
+  .hero-stats {
+    justify-content: flex-start;
+    gap: 60px;
+  }
+
+  .hero-stats li { text-align: left; }
 
   .hero::before {
     background:
