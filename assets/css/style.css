@@ -414,13 +414,6 @@ body.active { overflow: hidden; }
   gap: 20px;
 }
 
-.search-btn {
-  color: var(--btn-color);
-  font-size: 20px;
-}
-
-.search-btn ion-icon { --ionicon-stroke-width: 50px; }
-
 .nav-toggle-btn {
   display: grid;
   gap: 4px;
@@ -478,72 +471,6 @@ body.active { overflow: hidden; }
 }
 
 .navbar-link:is(:hover, :focus) { color: var(--dark-orange); }
-
-
-
-
-/*-----------------------------------*\
-  #SEARCH BOX
-\*-----------------------------------*/
-
-.search-container {
-  position: fixed;
-  top: -60%;
-  left: 0;
-  width: 100%;
-  height: 110%;
-  background-color: var(--black_95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-inline: 15px;
-  z-index: 5;
-  visibility: hidden;
-  opacity: 0;
-  transition: var(--transition-2);
-}
-
-.search-container.active {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(50%);
-}
-
-.search-box {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-}
-
-.search-input {
-  color: var(--gainsboro);
-  font-size: 3rem;
-  padding: 20px 15px;
-  padding-inline-end: 70px;
-}
-
-.search-input::placeholder { color: var(--spanish-gray); }
-
-.search-input::-webkit-search-cancel-button { display: none; }
-
-.search-submit {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 15px;
-  color: var(--onyx);
-  font-size: 4rem;
-  transition: var(--transition-1);
-}
-
-.search-submit:is(:hover, :focus) { color: var(--gainsboro); }
-
-.search-close-btn {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  cursor: url("../images/close.png"), auto;
-}
 
 
 
@@ -609,6 +536,8 @@ body.active { overflow: hidden; }
 
 .hero-text {
   color: var(--desert-sand);
+  font-size: var(--fs-3);
+  line-height: 1.7;
   margin-block: 15px 30px;
   max-width: 44ch;
   margin-inline: auto;
@@ -619,28 +548,52 @@ body.active { overflow: hidden; }
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
   margin-block-end: 30px;
   flex-wrap: wrap;
+}
+
+.hero-rating-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  background: hsla(0, 0%, 100%, 0.1);
+  border: 1px solid hsla(0, 0%, 100%, 0.18);
+  backdrop-filter: blur(8px);
 }
 
 .hero-stars {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .hero-stars ion-icon {
   color: #ffb400;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 1px 3px hsla(0, 0%, 0%, 0.3));
 }
 
 .hero-rating-text {
+  color: var(--white);
+  font-size: var(--fs-5);
+  font-weight: var(--fw-600);
+}
+
+.hero-rating-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--desert-sand);
   font-size: var(--fs-5);
 }
 
-.hero-rating-text strong { color: var(--white); }
+.hero-rating-note ion-icon {
+  color: var(--tangerine);
+  font-size: 1.8rem;
+}
 
 .hero-btn-group {
   display: flex;

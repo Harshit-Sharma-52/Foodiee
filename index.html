@@ -76,10 +76,6 @@
       </nav>
 
       <div class="header-btn-group">
-        <button class="search-btn" aria-label="Search" data-search-btn>
-          <ion-icon name="search-outline"></ion-icon>
-        </button>
-
         <button class="btn btn-hover" data-modal-open="book-table">Reservation</button>
 
         <button class="nav-toggle-btn" aria-label="Toggle Menu" data-menu-toggle-btn>
@@ -93,27 +89,6 @@
   </header>
 
 
-
-
-
-  <!-- 
-    - #SEARCH BOX
-  -->
-
-  <div class="search-container" data-search-container>
-
-    <div class="search-box">
-      <input type="search" name="search" aria-label="Search here" placeholder="Type keywords here..."
-        class="search-input">
-
-      <button class="search-submit" aria-label="Submit search" data-search-submit-btn>
-        <ion-icon name="search-outline"></ion-icon>
-      </button>
-    </div>
-
-    <button class="search-close-btn" aria-label="Cancel search" data-search-close-btn></button>
-
-  </div>
 
 
 
@@ -138,14 +113,20 @@
             <p class="hero-text">Authentic Indian flavours, crafted with love and the freshest ingredients since 2026.</p>
 
             <div class="hero-rating">
-              <div class="hero-stars" aria-label="Rated 4.9 out of 5">
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star"></ion-icon>
-                <ion-icon name="star-half"></ion-icon>
-              </div>
-              <p class="hero-rating-text"><strong>4.9/5</strong> · 2,500+ Happy Reviews</p>
+              <span class="hero-rating-badge">
+                <span class="hero-stars" aria-label="Rated 4.9 out of 5">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star-half"></ion-icon>
+                </span>
+                <span class="hero-rating-text"><strong>4.9/5</strong></span>
+              </span>
+              <span class="hero-rating-note">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                2,500+ Happy Reviews
+              </span>
             </div>
 
             <div class="hero-btn-group">

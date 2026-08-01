@@ -1,4 +1,4 @@
-Fast-Food. - Supper delicious Burger in town!
+Fast-Food. - Pure vegetarian Indian restaurant in town!
 
 
 
@@ -12,25 +12,9 @@ Shop
 Blog
 Contact Us
 
-aria-label = Search
-<ion-icon name="search-outline"></ion-icon>
-
 Reservation
 
 aria-label = Toggle Menu
-
-
-
-#---------- SEARCH BOX ----------#
-
-aria-label = Cancel search
-<ion-icon name="close-outline"></ion-icon>
-
-aria-label = Search here
-placeholder = Type keywords here...
-
-aria-label = Submit search
-<ion-icon name="search-outline"></ion-icon>
 
 
 
